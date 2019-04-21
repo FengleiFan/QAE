@@ -20,21 +20,6 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '1'
 np.random.seed(seed=1)
 
 
-# =============================================================================
-# def extract_patches(img):
-#     '''
-#     input: 512 x 512
-#     output: a list of patches of size 64 x 64
-#     '''
-#     patch_list = []
-#     w, h = img.shape
-#     for xw in np.arange(0, w-32, 32):
-#         for xh in np.arange(0, h-32, 32):
-#             patch_list.append(img[xw:xw+64, xh:xh+64])        
-#     return patch_list
-# 
-# 
-# =============================================================================
 
 def read_h5(file_name):
     '''
@@ -130,7 +115,7 @@ def Quad_conv_layer_valid(input, shape):
     #W_g = weight_variable_Wg(shape)
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
-    W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
+    W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))  # W_b can also be initialized by Gaussian with samll variance
     b_r = tf.Variable(tf.constant(-0.04, shape=[shape[3]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[3]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[3]],dtype=tf.float32))
@@ -184,24 +169,7 @@ with tf.device('/device:GPU:0'):
  decode_conv2 = tf.nn.relu(Quad_deconv_layer_same_linear(decode_conv3,shape=[3, 3,15,15],outputshape=tf.shape(encode_conv2))+encode_conv2)
  decode_conv1 = Quad_deconv_layer_same(decode_conv2,shape=[3, 3,15,15],outputshape=tf.shape(encode_conv1))
 
-# =============================================================================
-# 
-#  encode_conv1 = Quad_conv_layer_same(x_noised, shape=[3, 3, 1, 20])
-#  encode_conv2 = Quad_conv_layer_same(encode_conv1,shape=[3, 3,20,20])
-#  encode_conv3 = Quad_conv_layer_same(encode_conv2,shape=[3, 3,20,20])
-# 
-#  encode_conv4 = Quad_conv_layer_same(encode_conv3,shape=[3, 3,20,20])
-# 
-#  encode_conv5 = Quad_conv_layer_valid(encode_conv4,shape=[3, 3,20,20])
-# 
-#  decode_conv4 = tf.nn.relu(Quad_deconv_layer_valid_linear(encode_conv5,shape=[3, 3,20,20],outputshape=tf.shape(encode_conv4))+encode_conv4)
-#  decode_conv3 = Quad_deconv_layer_same(decode_conv4,shape=[3, 3,20,20],outputshape=tf.shape(encode_conv3))
-# 
-#  decode_conv2 = tf.nn.relu(Quad_deconv_layer_same_linear(decode_conv3,shape=[3, 3,20,20],outputshape=tf.shape(encode_conv2))+encode_conv2)
-#  decode_conv1 = Quad_deconv_layer_same(decode_conv2,shape=[3, 3,20,20],outputshape=tf.shape(encode_conv1))
-# 
-# #x_output = tf.nn.relu(Quad_conv_layer_linear_same(decode_conv1,shape=[3, 3,20,1])+x_noised)
-# =============================================================================
+
 
  x_output = tf.nn.relu(Quad_deconv_layer_same_linear(decode_conv1,shape=[3, 3,1,15],outputshape=tf.shape(x_noised))+x_noised)
 
@@ -306,11 +274,5 @@ with tf.Session(config=config) as sess:
     
 
 
-#fp = open('Quadratic_AE_16_Validation_Loss.txt', 'w')  
-fp = open('Overfitting.txt', 'w') 
-for j in range(validation_loss.shape[1]):
 
-                fp.write( '%1.10f,' % validation_loss[0,j] ),
-                
-fp.close()
 

@@ -11,7 +11,6 @@ import tensorflow as tf
 config = tf.ConfigProto(log_device_placement=True)
 config.gpu_options.allow_growth = True
 
-
 import h5py
 import os
 #import pydicom as dicom

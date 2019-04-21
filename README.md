@@ -5,4 +5,4 @@ where each layer has 15 quadratic filters of 5×5, followed by a ReLU layer. Zer
 therefore the fifth layer is the bottleneck layer. 
 
 We compare the validation loss with other CT denoising model
-![Validation Loss](https://github.com/FengleiFan/QAE/raw/master/Figure%203.tif)
+![Validation Loss](https://github.com/FengleiFan/QAE/raw/master/validation%20loss.jpg)

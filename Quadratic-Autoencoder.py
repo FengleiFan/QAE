@@ -65,7 +65,7 @@ def Quad_deconv_layer_valid_linear(input, shape, outputshape):
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
     W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
-    b_r = tf.Variable(tf.constant(0.04, shape=[shape[2]],dtype=tf.float32))
+    b_r = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[2]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     return (deconv2d_valid(input, W_r, outputshape)+b_r)*(deconv2d_valid(input, W_g,outputshape)+b_g)+deconv2d_valid(input*input, W_b,outputshape)+c
@@ -77,7 +77,7 @@ def Quad_deconv_layer_same_linear(input, shape, outputshape):
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
     W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
-    b_r = tf.Variable(tf.constant(0.04, shape=[shape[2]],dtype=tf.float32))
+    b_r = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[2]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     return (deconv2d_same(input, W_r, outputshape)+b_r)*(deconv2d_same(input, W_g,outputshape)+b_g)+deconv2d_same(input*input, W_b,outputshape)+c
@@ -89,7 +89,7 @@ def Quad_deconv_layer_same(input, shape, outputshape):
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
     W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
-    b_r = tf.Variable(tf.constant(0.04, shape=[shape[2]],dtype=tf.float32))
+    b_r = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[2]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[2]],dtype=tf.float32))
     return tf.nn.relu((deconv2d_same(input, W_r, outputshape)+b_r)*(deconv2d_same(input, W_g,outputshape)+b_g)+deconv2d_same(input*input, W_b,outputshape)+c)
@@ -116,7 +116,7 @@ def Quad_conv_layer_valid(input, shape):
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
     W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))  # W_b can also be initialized by Gaussian with samll variance
-    b_r = tf.Variable(tf.constant(-0.04, shape=[shape[3]],dtype=tf.float32))
+    b_r = tf.Variable(tf.constant(0, shape=[shape[3]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[3]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[3]],dtype=tf.float32))
     
@@ -129,7 +129,7 @@ def Quad_conv_layer_same(input, shape):
     W_g = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
     #W_b = weight_variable_Wb(shape)
     W_b = tf.Variable(tf.constant(0, shape=shape,dtype=tf.float32))
-    b_r = tf.Variable(tf.constant(-0.04, shape=[shape[3]],dtype=tf.float32))
+    b_r = tf.Variable(tf.constant(0, shape=[shape[3]],dtype=tf.float32))
     b_g = tf.Variable(tf.constant(1, shape=[shape[3]],dtype=tf.float32))
     c = tf.Variable(tf.constant(0, shape=[shape[3]],dtype=tf.float32))
     
@@ -191,7 +191,7 @@ label_test = label_test[0:64000]
 shape = np.int(Train_Number/Batch_size)
 
 loss = np.zeros((1,shape))
-validation_loss = np.zeros((1,20))
+validation_loss = np.zeros((1,30))
 
 #batch = x_test[i*Batch_size:(i+1)*Batch_size,:,:]
 Evaluate = np.zeros((Test_Number,28,28,1))
@@ -243,7 +243,7 @@ with tf.Session(config=config) as sess:
 
 
  
-    for iteration in np.arange(10):
+    for iteration in np.arange(20):
       #i=0  
 
       print(iteration)

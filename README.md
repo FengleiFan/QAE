@@ -1,5 +1,5 @@
 # Q-AE
-An autoencoder based on new types of neurons
+This code is about paper: "Quadratic Autoencoder (Q-AE) for Low-Dose CT Denoising" (https://ieeexplore.ieee.org/document/8946589), An autoencoder based on new types of neurons
 There are 5 quadratic convolutional layers and 5 quadratic deconvolutional layers in Q-AE, 
 where each layer has 15 quadratic filters of 5×5, followed by a ReLU layer. Zero paddings are used in the first four layer, 
 therefore the fifth layer is the bottleneck layer. 
